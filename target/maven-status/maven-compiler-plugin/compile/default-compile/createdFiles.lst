@@ -1,0 +1,10 @@
+com\xenojava\tournament\modules\Settings.class
+com\xenojava\tournament\interfaces\IBase.class
+com\xenojava\tournament\modules\Database.class
+com\xenojava\tournament\Manager.class
+com\xenojava\tournament\utils\Log.class
+com\xenojava\tournament\utils\Json.class
+com\xenojava\tournament\Module.class
+com\xenojava\tournament\bukkit\TournamentPlugin.class
+com\xenojava\tournament\Tournament.class
+com\xenojava\tournament\interfaces\ITournament.class
