@@ -11,7 +11,7 @@ public class Tournament {
 
     /**
      * ** Tournament Project **
-     * <p/>
+     *
      * A project developed for and only Triangle. This project
      * was all made possible by the plugin developer and requester.
      *

@@ -2,6 +2,7 @@ package com.xenojava.tournament.tasks;
 
 import com.xenojava.tournament.Setting;
 import com.xenojava.tournament.api.TournamentAPI;
+import com.xenojava.tournament.enums.ServerState;
 import com.xenojava.tournament.utils.Log;
 import org.bukkit.Bukkit;
 
@@ -22,12 +23,10 @@ public class TickApplication implements Runnable {
     }
 
     public void run() {
-        if (api.getState().equals(ServerState.LOBBY) && Setting.AUTO_START.getBoolean()) {
-            Log.debug("Checking lobby ...");
+        if (api.getState().equals(ServerState.LOBBY) && Setting.AUTO_START.getBoolean())
 
             if (Bukkit.getOnlinePlayers().length >= Setting.REQUIRED_AMOUNT_START.getInteger()) {
-                api.setState(ServerState.CONCURRENT);
+                api.startTournament();
             }
-        }
     }
 }

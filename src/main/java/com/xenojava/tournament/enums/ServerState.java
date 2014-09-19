@@ -1,4 +1,4 @@
-package com.xenojava.tournament.tasks;
+package com.xenojava.tournament.enums;
 
 public enum ServerState {
 

@@ -1,11 +1,11 @@
 package com.xenojava.tournament.api;
 
 import com.xenojava.tournament.Tournament;
-import com.xenojava.tournament.tasks.ServerState;
+import com.xenojava.tournament.enums.ServerState;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static com.xenojava.tournament.tasks.ServerState.LOBBY;
+import static com.xenojava.tournament.enums.ServerState.LOBBY;
 
 public class TournamentColl implements TournamentAPI {
 
@@ -21,7 +21,6 @@ public class TournamentColl implements TournamentAPI {
         this.setState(ServerState.CONCURRENT);
     }
 
-
     public void endTournament() {
         this.setState(ServerState.LOBBY);
     }
@@ -30,16 +29,17 @@ public class TournamentColl implements TournamentAPI {
 
     }
 
+    public boolean hasStarted() {
+        return (getState().equals(ServerState.CONCURRENT));
+    }
 
     public void setState(ServerState state) {
         this.state = state;
     }
 
-
     public ServerState getState() {
         return state;
     }
-
 
     public JavaPlugin getPlugin() {
         return tournament.getPlugin();

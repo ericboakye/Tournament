@@ -1,6 +1,6 @@
 package com.xenojava.tournament.api;
 
-import com.xenojava.tournament.tasks.ServerState;
+import com.xenojava.tournament.enums.ServerState;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +35,14 @@ public interface TournamentAPI {
      * @param state Server State.
      */
     public void setState(ServerState state);
+
+    /**
+     * Methods checks server state.
+     *
+     * @return Is Tournament active or has it begun
+     */
+    public boolean hasStarted();
+
 
     /**
      * @return Returns server state.
