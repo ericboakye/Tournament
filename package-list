@@ -1,0 +1,7 @@
+com.xenojava.tournament
+com.xenojava.tournament.api
+com.xenojava.tournament.bukkit
+com.xenojava.tournament.events
+com.xenojava.tournament.modules
+com.xenojava.tournament.redis
+com.xenojava.tournament.utils
