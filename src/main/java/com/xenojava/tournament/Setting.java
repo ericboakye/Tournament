@@ -4,7 +4,8 @@ public enum Setting {
 
     AUTO_START("auto-start-tournament", true),
     DEBUG("debug-mode", true),
-    REQUIRED_AMOUNT_START("required-players-to-begin", 10);
+    REQUIRED_AMOUNT_START("required-players-to-begin", 10),
+    GAMING_TIME("game-time-in-seconds", 10 * 60);
 
     private Object def;
     private String path;
@@ -26,6 +27,11 @@ public enum Setting {
 
     public Object getDefault() {
         return def;
+    }
+
+    public Object getObject() {
+        if (value == null) return def;
+        return value;
     }
 
     public boolean getBoolean() {

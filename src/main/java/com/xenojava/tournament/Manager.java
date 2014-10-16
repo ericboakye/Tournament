@@ -40,9 +40,9 @@ public class Manager {
     }
 
     public void disableModules() throws Exception {
-        for (Module m : modules) {
-            m.teminate(plugin);
-        }
+        //for (Module m : modules) {
+        //m.teminate(plugin);
+        // }
     }
 
     private void reg(Class<? extends Module> mclass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

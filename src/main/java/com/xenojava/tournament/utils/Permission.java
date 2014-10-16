@@ -1,4 +1,4 @@
-package com.xenojava.tournament.security;
+package com.xenojava.tournament.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.PermissionDefault;

@@ -17,7 +17,7 @@ public class TimeApplication implements Runnable {
 
     public TimeApplication(TournamentAPI api) {
         this.api = api;
-        Log.debug("Starting time application: " + this.task);
+        Log.debug("Starting time application!: " + this.task);
     }
 
     public void startTimer(int seconds) {
@@ -31,6 +31,14 @@ public class TimeApplication implements Runnable {
 
     public boolean hasStarted() {
         return (task != null);
+    }
+
+    public boolean isOver() {
+        return this.endTime < System.currentTimeMillis();
+    }
+
+    public int getTimeLeft() {
+        return (int) (this.endTime - System.currentTimeMillis());
     }
 
     public void cancel() {

@@ -1,6 +1,7 @@
 package com.xenojava.tournament.api;
 
 import com.xenojava.tournament.enums.ServerState;
+import com.xenojava.tournament.tasks.TimeApplication;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,12 +20,20 @@ public interface TournamentAPI {
      */
     public void endTournament();
 
+
+    /**
+     * Timer handles time limit etc.
+     *
+     * @return Tournament main timer
+     */
+    public TimeApplication getTimeApplication();
+
+
     /**
      * Sets a user in spectate mode.
      *
      * @param player Choosen player.
      */
-
     @Deprecated
     public void spectate(Player player);
 

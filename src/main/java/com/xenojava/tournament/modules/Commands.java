@@ -1,12 +1,13 @@
 package com.xenojava.tournament.modules;
 
 import com.xenojava.tournament.Module;
+import com.xenojava.tournament.Tournament;
+import com.xenojava.tournament.api.TournamentAPI;
+import com.xenojava.tournament.commands.InterfaceDependant;
 import com.xenojava.tournament.commands.CommandException;
-import com.xenojava.tournament.commands.PluginDependent;
 import com.xenojava.tournament.commands.TCommand;
-import com.xenojava.tournament.security.AdminAccess;
-import com.xenojava.tournament.security.Permission;
-import com.xenojava.tournament.utils.Log;
+import com.xenojava.tournament.commands.AdminAccess;
+import com.xenojava.tournament.utils.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -14,15 +15,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Commands extends Module implements CommandExecutor{
+public class Commands extends Module implements CommandExecutor {
 
 
     /**
@@ -38,10 +37,17 @@ public class Commands extends Module implements CommandExecutor{
 
     public static ArrayList<TCommand> commands = new ArrayList<TCommand>();
     private JavaPlugin plugin;
+    private PluginCommand tcommand;
 
 
     public void setup(JavaPlugin plugin) {
         this.plugin = plugin;
+
+        // TCommand registration
+        tcommand = getCommand("t", plugin);
+        tcommand.setExecutor(this);
+        tcommand.setAliases(Arrays.asList("tournament"));
+        getCommandMap().register(plugin.getDescription().getName(), tcommand);
     }
 
     public void end(JavaPlugin plugin) {
@@ -50,41 +56,54 @@ public class Commands extends Module implements CommandExecutor{
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        if (!command.equals(tcommand)) {
+            return true;
+        }
+
+        if (args.length == 0) {
+            sender.sendMessage("Too few arguments!");
+            return true;
+        }
+
+        ArrayList<String> a = new ArrayList<String>(Arrays.asList(args));
+        a.remove(0);
+
+        String[] arguments = a.toArray(new String[a.size()]);
+
         for (TCommand cmd : commands)
             if (cmd.getAliases().length > 0) {
-                if (cmd.getName().equalsIgnoreCase(label)) {
-                    this.processCommand(cmd, sender, args);
+                if (cmd.getName().equalsIgnoreCase(args[0])) {
+                    this.processCommand(cmd, sender, arguments);
                     return true;
                 }
                 for (String aliase : cmd.getAliases())
-                    if (aliase.equalsIgnoreCase(label)) {
-                        this.processCommand(cmd, sender, args);
+                    if (aliase.equalsIgnoreCase(args[0])) {
+                        this.processCommand(cmd, sender, arguments);
                         return true;
                     }
-            } else if (cmd.getName().equalsIgnoreCase(label)) {
-                this.processCommand(cmd, sender, args);
+            } else if (cmd.getName().equalsIgnoreCase(args[0])) {
+                this.processCommand(cmd, sender, arguments);
                 return true;
             }
+
+        sender.sendMessage("Unknown command!");
+
         return false;
     }
 
     public void reg(Class<? extends TCommand> clazz) throws Exception {
         Constructor ctor;
         TCommand cmd;
-        PluginCommand pCmd;
 
-        if (clazz.isAnnotationPresent(PluginDependent.class)) {
-            ctor = clazz.getDeclaredConstructor(JavaPlugin.class);
+        if (clazz.isAnnotationPresent(InterfaceDependant.class)) {
+            ctor = clazz.getDeclaredConstructor(TournamentAPI.class);
             ctor.setAccessible(true);
-            cmd = (TCommand) ctor.newInstance(plugin);
+            cmd = (TCommand) ctor.newInstance(Tournament.getAPI());
 
         } else cmd = clazz.newInstance();
 
         commands.add(cmd);
-        pCmd = getCommand(cmd.getName(), plugin);
-        pCmd.setExecutor(this);
-        pCmd.setAliases(Arrays.asList(cmd.getAliases()));
-        getCommandMap().register(plugin.getDescription().getName(), pCmd);
     }
 
     private boolean processCommand(TCommand cmd, CommandSender sender, String[] args) {

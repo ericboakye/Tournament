@@ -8,64 +8,78 @@
     <artifactId>Tournament-Project</artifactId>
     <version>1.2.0-BETA</version>
 
-        <repositories>
-            <!-- Repository information -->
+    <repositories>
+        <!-- Repository information -->
 
-            <repository>
-                <id>bukkit-repo</id>
-                <url>http://repo.bukkit.org/content/groups/public/</url>
-            </repository>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
 
-            <repository>
-                <id>onarandombox</id>
-                <url>http://repo.onarandombox.com/content/groups/public/</url>
-            </repository>
+        <repository>
+            <id>onarandombox</id>
+            <url>http://repo.onarandombox.com/content/groups/public/</url>
+        </repository>
 
-            <repository>
-                <id>confuser-repo</id>
-                <url>http://ci.frostcast.net/plugin/repository/everything</url>
-            </repository>
+        <repository>
+            <id>confuser-repo</id>
+            <url>http://ci.frostcast.net/plugin/repository/everything</url>
+        </repository>
 
-        </repositories>
+        <repository>
+            <id>jedis</id>
+            <url>http://mvnrepository.com/artifact/redis.clients</url>
+        </repository>
 
 
-        <dependencies>
-            <!-- Dependency information -->
+    </repositories>
 
-            <dependency>
-                <groupId>net.minidev</groupId>
-                <artifactId>json-smart</artifactId>
-                <version>1.1.1</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
 
-            <dependency>
-                <groupId>me.confuser</groupId>
-                <artifactId>BarAPI</artifactId>
-                <version>3.0</version>
-            </dependency>
+    <dependencies>
+        <!-- Dependency information -->
 
-            <dependency>
-                <groupId>com.dumptruckman.minecraft</groupId>
-                <artifactId>JsonConfiguration</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>1.1.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
 
-            <dependency>
-                <groupId>org.bukkit</groupId>
-                <artifactId>bukkit</artifactId>
-                <scope>provided</scope>
-                <!-- Bukkit API Version, change if necessary -->
-                <version>1.7.9-R0.2</version>
-            </dependency>
-        </dependencies>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.5.2</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.confuser</groupId>
+            <artifactId>BarAPI</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dumptruckman.minecraft</groupId>
+            <artifactId>JsonConfiguration</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <scope>provided</scope>
+            <!-- Bukkit API Version, change if necessary -->
+            <version>1.7.9-R0.2</version>
+        </dependency>
+    </dependencies>
 
     <build>
 
-        <directory>debug-server\plugins</directory>
+        <directory>debug-server/plugins</directory>
 
         <resources>
             <resource>
@@ -74,7 +88,6 @@
             </resource>
         </resources>
         <plugins>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,10 +113,12 @@
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>true</minimizeJar>
+
                             <artifactSet>
                                 <includes>
                                     <include>com.dumptruckman.minecraft:JsonConfiguration</include>
                                     <include>net.minidev:json-smart</include>
+                                    <include>redis.clients:jedis:*:*</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

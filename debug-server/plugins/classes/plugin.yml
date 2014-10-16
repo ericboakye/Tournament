@@ -3,6 +3,7 @@ version:  1.2.0-BETA
 main: com.xenojava.tournament.bukkit.TournamentPlugin
 author: XenoJava
 website: www.xenojava.com
+softdepend: [BarAPI]
 description: 
          A project developed for and only Triangle. This project
-         was all made possible by the plugin developer and requester.
+         was all made possible by the plugin developer and requester!
